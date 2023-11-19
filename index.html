@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIJACK SHOPS</title>
+    <!-- Updated Font Awesome CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-s....your-sha-hash-here...." crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:black;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        #logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #3498db; /* Blue color */
+            /*background: #ecf0f1;  Light gray background */
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+
+        #content {
+            padding: 1em;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #balance-display {
+            text-align: center;
+            margin-top: 1em;
+            font-size: 16px;
+            color: #555;
+        }
+
+        #product-display {
+            text-align: center;
+            margin-top: 1em;
+        }
+
+        .product-container {
+            margin-top: 1em;
+        }
+
+        .product-image {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .product-name {
+            margin-top: 0.5em;
+            font-size: 14px;
+            color: #555;
+        }
+
+        #links {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1em;
+            background-color: #333;
+            padding: 1em;
+        }
+
+        #links a {
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 0.5em;
+            font-size: 14px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #links a:hover {
+            background-color: #2980b9; /* Darker blue color on hover */
+        }
+
+        #social-icons {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #social-icons a {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="logo">TRIGAMINI</div>
+    </header>
+
+    <div id="links">
+        <a href="deposit.html" id="deposit-link">Deposit</a>
+        <a href="#" id="withdraw-link">Withdraw</a>
+    </div>
+
+    <div id="content">
+        <div id="balance-display">Balance: GHS 0</div>
+
+        
+        <button onclick="order()">Order</button>
+        <div id ="balance-display">Your order record goes here.</div>
+
+
+        <div id="product-display">
+            <!-- Product container will be displayed here -->
+        </div>
+    </div>
+
+    <div id="social-icons">
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+
+    <script>
+        let userBalance = 0;
+        let dailyOrderCount = 0;
+        const dailyOrderLimit = 5;
+        const profitPerOrder = 1;
+        const depositAmount = 10;
+        const products = [
+        { name: 'ORAIMO NECKLACE, GHS1 Added sucessfully', image: 'ORAIMO NECKLACE.png' },
+            { name: 'CHARGER GHS1 Added sucessfully', image: 'charger.jfif' },
+            { name: 'POWER BANK GHS1 Added sucessfully', image: 'power.png' },
+           
+            // ...
+            { name: 'Product 15', image: 'product15.jpg' }
+        ];
+
+        function order() {
+            if (userBalance >= depositAmount) {
+                // Allow placing an order if the balance is greater than or equal to GHS 10
+                if (dailyOrderCount < dailyOrderLimit) {
+                    // Add GHS 1 to the user's balance
+                    userBalance += profitPerOrder;
+
+                    // Increment the daily order count
+                    dailyOrderCount++;
+
+                    // Display a random product
+                    const randomIndex = Math.floor(Math.random() * products.length);
+                    const randomProduct = products[randomIndex];
+
+                    // Create a product container
+                    const productContainer = document.createElement('div');
+                    productContainer.className = 'product-container';
+
+                    // Display the product image
+                    const productImage = document.createElement('img');
+                    productImage.src = randomProduct.image;
+                    productImage.alt = 'Product Image';
+                    productImage.className = 'product-image';
+                    productContainer.appendChild(productImage);
+
+                    // Display the product name
+                    const productName = document.createElement('div');
+                    productName.innerText = randomProduct.name;
+                    productName.className = 'product-name';
+                    productContainer.appendChild(productName);
+
+                    // Append the product container to the product display
+                    document.getElementById('product-display').appendChild(productContainer);
+
+                    // Display the updated balance
+                    document.getElementById('balance-display').innerText = `Balance: GHS ${userBalance}`;
+                } else {
+                    alert("You've reached the daily order limit. Maximum 5 orders per day.");
+                }
+            } else {
+                alert("Please deposit to place an order. Minimum balance required: GHS 10. Thank you!");
+            }
+        }
+    </script>
+</body>
+</html>
